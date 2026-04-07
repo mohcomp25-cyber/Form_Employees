@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Form</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:#F7F3EE;color:#2C1A0E;min-height:100vh;padding:2rem 1rem}
+  .wrap{max-width:680px;margin:0 auto}
+  .lang-bar{display:flex;justify-content:center;gap:8px;margin-bottom:1.5rem}
+  .lang-btn{padding:7px 22px;border:1.5px solid #DDD0C0;border-radius:20px;background:#FFF8F0;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;color:#A0856A}
+  .lang-btn.active{background:#FF6B00;border-color:#FF6B00;color:#fff}
+  .lang-btn:hover:not(.active){border-color:#FF6B00;color:#FF6B00}
+  .header-card{background:linear-gradient(135deg,#FF6B00 0%,#E85500 100%);border-radius:16px;padding:1.8rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:16px}
+  .header-icon{width:60px;height:60px;background:rgba(255,255,255,0.18);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .header-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:3px}
+  .header-sub{font-size:12px;color:rgba(255,255,255,0.75)}
+  .section{background:#fff;border:1px solid #EDE4D8;border-radius:14px;padding:1.5rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(180,120,60,0.06)}
+  .section-title{font-size:12px;font-weight:700;color:#B07040;margin-bottom:1rem;letter-spacing:.8px;text-transform:uppercase}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .row.full{grid-template-columns:1fr}
+  .field{display:flex;flex-direction:column;gap:5px}
+  label{font-size:13px;color:#6B4C30;font-weight:600}
+  label span.req{color:#E24B4A;margin-right:2px;margin-left:2px}
+  input[type=text],input[type=tel],input[type=email],input[type=date],select,textarea{width:100%;padding:9px 12px;font-size:14px;border:1px solid #DDD0C0;border-radius:9px;background:#FFFAF5;color:#2C1A0E;font-family:inherit;transition:border-color .2s}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:#FF6B00;box-shadow:0 0 0 3px rgba(255,107,0,0.1);background:#fff}
+  .iban-wrap{display:flex}
+  .iban-prefix{padding:9px 14px;background:#FF6B00;color:#fff;font-size:14px;font-weight:700;white-space:nowrap;letter-spacing:1px;border-radius:9px 0 0 9px}
+  .iban-wrap input{border-radius:0 9px 9px 0;border-left:none}
+  .hint{font-size:11px;color:#B09070;margin-top:3px}
+  .upload-zone{border:1.5px dashed #DDD0C0;border-radius:9px;padding:1.2rem;text-align:center;cursor:pointer;background:#FFFAF5;transition:border-color .2s}
+  .upload-zone:hover{border-color:#FF6B00;background:#FFF5EE}
+  .upload-zone input{display:none}
+  .upload-icon{font-size:28px;opacity:.45;margin-bottom:6px}
+  .upload-label{font-size:13px;color:#A08060}
+  .upload-name{font-size:12px;color:#FF6B00;margin-top:4px;display:none;font-weight:500}
+  .preview-img{width:100%;max-height:150px;object-fit:cover;border-radius:8px;margin-top:10px;display:none;border:1px solid #EDE4D8}
+  .submit-btn{width:100%;padding:14px;background:#FF6B00;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;letter-spacing:.3px}
+  .submit-btn:hover{opacity:.9}
+  .success{display:none;text-align:center;padding:3rem 1rem}
+  .success-icon{width:64px;height:64px;background:#EAF3DE;border-radius:50%;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px}
+  .success-title{font-size:20px;font-weight:700;margin-bottom:8px;color:#2C5F10}
+  .success-sub{font-size:14px;color:#888}
+  @media(max-width:520px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('ar',this)">العربية</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+    <button class="lang-btn" onclick="setLang('ur',this)">اردو</button>
+  </div>
+
+  <div class="header-card">
+    <div class="header-icon">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Head -->
+        <circle cx="18" cy="11" r="6" fill="white" opacity="0.95"/>
+        <!-- Body -->
+        <path d="M6 30 C6 22 10 19 18 19 C26 19 30 22 30 30" fill="white" opacity="0.95"/>
+        <!-- ID badge -->
+        <rect x="13" y="24" width="10" height="7" rx="2" fill="#FF6B00" opacity="0.85"/>
+        <rect x="15" y="26" width="6" height="1.2" rx="0.6" fill="white"/>
+        <rect x="15" y="28.2" width="4" height="1" rx="0.5" fill="white" opacity="0.7"/>
+        <!-- Clip badge lanyard -->
+        <rect x="17.2" y="21" width="1.6" height="3.2" rx="0.8" fill="white" opacity="0.6"/>
+      </svg>
+    </div>
+    <div>
+      <div class="header-title" id="t-main-title">استمارة بيانات الموظف</div>
+      <div class="header-sub" id="t-subtitle">استمارة موظفين</div>
+    </div>
+  </div>
+
+  <div id="form-content">
+
+    <div class="section">
+      <div class="section-title" id="t-sec1">المعلومات الشخصية</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="row full"><div class="field">
+          <label id="t-fullname">الاسم الكامل (كما في الإقامة)<span class="req">*</span></label>
+          <input type="text" name="fullname" id="fullname" placeholder="الاسم الرباعي كما هو في الإقامة">
+        </div></div>
+        <div class="row full"><div class="field">
+          <label id="t-iqamanum">رقم الإقامة<span class="req">*</span></label>
+          <input type="text" name="iqama_number" id="iqamanum" placeholder="XXXXXXXXXX" maxlength="12">
+        </div></div>
+        <div class="row">
+          <div class="field">
+            <label id="t-phone">رقم الجوال<span class="req">*</span></label>
+            <input type="tel" name="phone" id="phone" placeholder="05XXXXXXXX">
+          </div>
+          <div class="field">
+            <label id="t-email">البريد الإلكتروني<span class="req">*</span></label>
+            <input type="email" name="email" id="email" placeholder="example@email.com">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label id="t-dob">تاريخ الميلاد<span class="req">*</span></label>
+            <input type="date" name="dob" id="dob">
+          </div>
+          <div class="field">
+            <label id="t-workplace">جهة العمل (الفرع)<span class="req">*</span></label>
+            <input type="text" name="workplace" id="workplace" placeholder="اسم الفرع أو الشركة">
+          </div>
+        </div>
+        <div class="row full"><div class="field">
+          <label id="t-jobtitle">المسمى الوظيفي<span class="req">*</span></label>
+          <input type="text" name="jobtitle" id="jobtitle" placeholder="مثال: مشغّل منصة، محاسب...">
+        </div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title" id="t-sec2">المعلومات البنكية</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+
+        <div class="field">
+          <label id="t-paytype">طريقة الاستلام<span class="req">*</span></label>
+          <div style="display:flex;gap:8px;margin-top:2px">
+            <button type="button" id="btn-bank" onclick="setPayType('bank')"
+              style="flex:1;padding:9px;border:1.5px solid #FF6B00;border-radius:8px;background:#FF6B00;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s">
+              🏦 <span id="t-btn-bank-txt">تحويل بنكي</span>
+            </button>
+            <button type="button" id="btn-cash" onclick="setPayType('cash')"
+              style="flex:1;padding:9px;border:1.5px solid #ddd;border-radius:8px;background:#fff;color:#888;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s">
+              💵 <span id="t-btn-cash-txt">كاش</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="bank-fields">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div class="row full"><div class="field">
+              <label id="t-iban">رقم الآيبان<span class="req">*</span></label>
+              <div class="iban-wrap">
+                <div class="iban-prefix">SA</div>
+                <input type="text" name="iban" id="iban" placeholder="00 0000 0000 0000 0000 0000" maxlength="27" oninput="formatIBAN(this)">
+              </div>
+              <span class="hint" id="t-iban-hint">أدخل الأرقام فقط — الحرفان SA مضافان تلقائياً</span>
+            </div></div>
+            <div class="row">
+              <div class="field">
+                <label id="t-bank">اسم البنك<span class="req">*</span></label>
+                <select name="bank" id="bank">
+                  <option value="" id="t-bank-ph">اختر البنك...</option>
+                  <option>بنك الراجحي</option>
+                  <option>البنك الأهلي السعودي</option>
+                  <option>بنك الرياض</option>
+                  <option>البنك السعودي الفرنسي</option>
+                  <option>بنك البلاد</option>
+                  <option>بنك الإنماء</option>
+                  <option>بنك العربي الوطني</option>
+                  <option>بنك ساب</option>
+                  <option>مصرف الجزيرة</option>
+                  <option>بنك الخليج الدولي</option>
+                  <option>STC Bank / STC Pay</option>
+                  <option>أخرى</option>
+                </select>
+              </div>
+              <div class="field">
+                <label id="t-accnum">رقم الحساب<span class="req">*</span></label>
+                <input type="text" name="account_number" id="accnum" placeholder="رقم الحساب البنكي">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="cash-fields" style="display:none;background:#FFF8F0;border:1px solid #FFD9B3;border-radius:8px;padding:1rem;text-align:center">
+          <div style="font-size:24px;margin-bottom:6px">💵</div>
+          <div style="font-size:14px;font-weight:600;color:#CC5500" id="t-cash-title">تم اختيار الدفع كاش</div>
+          <div style="font-size:12px;color:#AA4400;margin-top:4px" id="t-cash-sub">سيتم تسليم الراتب نقداً — لا حاجة لبيانات بنكية</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title" id="t-sec3">معلومات الطوارئ والعنوان</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="row full"><div class="field">
+          <label id="t-homeaddress">عنوانك في بلد الأصل<span class="req">*</span></label>
+          <textarea name="home_address" id="homeaddress" rows="2" style="resize:none" placeholder="الدولة، المدينة، الحي، الشارع..."></textarea>
+        </div></div>
+        <div class="row full"><div class="field">
+          <label id="t-emergency">رقم الطوارئ في بلدك<span class="req">*</span></label>
+          <input type="tel" name="emergency_number" id="emergency" placeholder="+92 0300 000 0000">
+        </div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title" id="t-sec4">المستندات المطلوبة</div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="field">
+          <label id="t-iqama">صورة الإقامة<span class="req">*</span></label>
+          <div class="upload-zone" onclick="document.getElementById('f-iqama').click()">
+            <input type="file" name="iqama_image" id="f-iqama" accept="image/*" onchange="previewFile(this,'prev-iqama','name-iqama')">
+            <div class="upload-icon">🪪</div>
+            <div class="upload-label" id="t-up-iqama">اضغط لرفع صورة الإقامة</div>
+            <div class="upload-name" id="name-iqama"></div>
+            <img class="preview-img" id="prev-iqama" alt="">
+          </div>
+          <div style="background:#FFF8E8;border:1px solid #FFE0A0;border-radius:8px;padding:10px 12px;margin-top:6px;display:flex;gap:8px;align-items:flex-start">
+            <span style="font-size:16px;margin-top:1px">📝</span>
+            <span style="font-size:12px;color:#8B6000;line-height:1.6" id="t-iqama-note">في حال عدم توفر صورة الإقامة، يُرجى تصوير <strong>جواز السفر</strong> أو <strong>تأشيرة العمل</strong> بدلاً منها</span>
+          </div>
+        </div>
+        <div class="field">
+          <label id="t-health">صورة الكرت الصحي</label>
+          <div class="upload-zone" onclick="document.getElementById('f-health').click()">
+            <input type="file" name="health_card_image" id="f-health" accept="image/*" onchange="previewFile(this,'prev-health','name-health')">
+            <div class="upload-icon">🏥</div>
+            <div class="upload-label" id="t-up-health">اضغط لرفع الكرت الصحي</div>
+            <div class="upload-name" id="name-health"></div>
+            <img class="preview-img" id="prev-health" alt="">
+          </div>
+        </div>
+        <div class="field">
+          <label id="t-photo">الصورة الشخصية<span class="req">*</span></label>
+          <div class="upload-zone" onclick="document.getElementById('f-photo').click()">
+            <input type="file" name="personal_photo" id="f-photo" accept="image/*" onchange="previewFile(this,'prev-photo','name-photo')">
+            <div class="upload-icon">📷</div>
+            <div class="upload-label" id="t-up-photo">اضغط لرفع الصورة الشخصية</div>
+            <div class="upload-name" id="name-photo"></div>
+            <img class="preview-img" id="prev-photo" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="submit-btn" id="t-submit" onclick="submitForm()">إرسال البيانات</button>
+  </div>
+
+  <div class="success" id="success-msg">
+    <div class="success-icon">✅</div>
+    <div class="success-title" id="t-success-title">تم إرسال البيانات بنجاح!</div>
+    <div class="success-sub" id="t-success-sub">شكراً، سيتم مراجعة معلوماتك من قِبل الفريق قريباً.</div>
+  </div>
+
+</div>
+<script>
+var WEBHOOK_URL="https://lachelle-sigillary-lala.ngrok-free.dev/webhook-test/2575a617-f1c4-4a3b-83c4-36e81ba63922";
+var currentPayType='bank';
+function setPayType(type){
+  currentPayType=type;
+  var bb=document.getElementById('btn-bank');
+  var cb=document.getElementById('btn-cash');
+  var bf=document.getElementById('bank-fields');
+  var cf=document.getElementById('cash-fields');
+  if(type==='bank'){
+    bb.style.background='#FF6B00';bb.style.borderColor='#FF6B00';bb.style.color='#fff';
+    cb.style.background='#fff';cb.style.borderColor='#ddd';cb.style.color='#888';
+    bf.style.display='block';cf.style.display='none';
+  } else {
+    cb.style.background='#FF6B00';cb.style.borderColor='#FF6B00';cb.style.color='#fff';
+    bb.style.background='#fff';bb.style.borderColor='#ddd';bb.style.color='#888';
+    bf.style.display='none';cf.style.display='block';
+  }
+}
+var currentLang='ar';
+var T={
+  ar:{dir:'rtl',subtitle:'استمارة موظفين',sec1:'المعلومات الشخصية',sec2:'المعلومات البنكية',sec3:'معلومات الطوارئ والعنوان',sec4:'المستندات المطلوبة',fullname:'الاسم الكامل (كما في الإقامة)',fullname_ph:'الاسم الرباعي كما هو في الإقامة',iqamanum:'رقم الإقامة',iqamanum_ph:'XXXXXXXXXX',iqama_note:'في حال عدم توفر صورة الإقامة، يُرجى تصوير <strong>جواز السفر</strong> أو <strong>تأشيرة العمل</strong> بدلاً منها',phone:'رقم الجوال',email:'البريد الإلكتروني',dob:'تاريخ الميلاد',workplace:'جهة العمل (الفرع)',workplace_ph:'اسم الفرع أو الشركة',jobtitle:'المسمى الوظيفي',jobtitle_ph:'مثال: مشغّل منصة، محاسب...',iban:'رقم الآيبان',iban_hint:'أدخل الأرقام فقط — الحرفان SA مضافان تلقائياً',bank:'اسم البنك',bank_ph:'اختر البنك...',accnum:'رقم الحساب',accnum_ph:'رقم الحساب البنكي',homeaddress:'عنوانك في بلد الأصل',homeaddress_ph:'الدولة، المدينة، الحي، الشارع...',emergency:'رقم الطوارئ في بلدك',emergency_ph:'+92 0300 000 0000',iqama:'صورة الإقامة',up_iqama:'اضغط لرفع صورة الإقامة',health:'صورة الكرت الصحي',up_health:'اضغط لرفع الكرت الصحي',photo:'الصورة الشخصية',up_photo:'اضغط لرفع الصورة الشخصية',submit:'إرسال البيانات',success_title:'تم إرسال البيانات بنجاح!',success_sub:'شكراً، سيتم مراجعة معلوماتك من قِبل الفريق قريباً.',err_pre:'⚠️ يرجى تعبئة حقل: ',err_file:'⚠️ يرجى رفع: ',sending:'جاري الإرسال...',err_conn:'حدث خطأ. تأكد من الاتصال وحاول مجدداً.',v_fullname:'الاسم الكامل',v_iqamanum:'رقم الإقامة',v_phone:'رقم الجوال',v_email:'البريد الإلكتروني',v_dob:'تاريخ الميلاد',v_workplace:'جهة العمل',v_jobtitle:'المسمى الوظيفي',v_iban:'رقم الآيبان',v_bank:'اسم البنك',v_accnum:'رقم الحساب',v_homeaddress:'عنوان بلد الأصل',v_emergency:'رقم الطوارئ',v_iqama:'صورة الإقامة',v_health:'الكرت الصحي',v_photo:'الصورة الشخصية'},
+  en:{dir:'ltr',subtitle:'Employee Form',sec1:'Personal Information',sec2:'Banking Information',sec3:'Emergency & Address',sec4:'Required Documents',fullname:'Full Name (as in Iqama)',fullname_ph:'Full name as shown on Iqama',iqamanum:'Iqama Number',iqamanum_ph:'XXXXXXXXXX',iqama_note:'If no Iqama photo is available, please upload a photo of your <strong>Passport</strong> or <strong>Work Visa</strong> instead',phone:'Mobile Number',email:'Email Address',dob:'Date of Birth',workplace:'Workplace (Branch)',workplace_ph:'Branch or company name',jobtitle:'Job Title',jobtitle_ph:'e.g. Platform Operator, Accountant...',iban:'IBAN Number',iban_hint:'Enter numbers only — SA is added automatically',bank:'Bank Name',bank_ph:'Select bank...',accnum:'Account Number',accnum_ph:'Bank account number',homeaddress:'Home Address (Home Country)',homeaddress_ph:'Country, City, District, Street...',emergency:'Emergency Number (Home Country)',emergency_ph:'+92 0300 000 0000',iqama:'Iqama Photo',up_iqama:'Tap to upload Iqama photo',health:'Health Card Photo',up_health:'Tap to upload health card',photo:'Personal Photo',up_photo:'Tap to upload personal photo',submit:'Submit Information',success_title:'Submitted Successfully!',success_sub:'Thank you. Your information will be reviewed shortly.',err_pre:'⚠️ Please fill in: ',err_file:'⚠️ Please upload: ',sending:'Sending...',err_conn:'An error occurred. Check your connection and try again.',v_fullname:'Full Name',v_iqamanum:'Iqama Number',v_phone:'Mobile Number',v_email:'Email',v_dob:'Date of Birth',v_workplace:'Workplace',v_jobtitle:'Job Title',v_iban:'IBAN',v_bank:'Bank Name',v_accnum:'Account Number',v_homeaddress:'Home Address',v_emergency:'Emergency Number',v_iqama:'Iqama Photo',v_health:'Health Card',v_photo:'Personal Photo'},
+  ur:{dir:'rtl',subtitle:'ملازمین فارم',sec1:'ذاتی معلومات',sec2:'بینکنگ معلومات',sec3:'ہنگامی رابطہ اور پتہ',sec4:'ضروری دستاویزات',fullname:'پورا نام (اقامہ کے مطابق)',fullname_ph:'اقامہ پر درج پورا نام',iqamanum:'اقامہ نمبر',iqamanum_ph:'XXXXXXXXXX',iqama_note:'اگر اقامہ کی تصویر دستیاب نہیں، تو <strong>پاسپورٹ</strong> یا <strong>ورک ویزہ</strong> کی تصویر اپلوڈ کریں',phone:'موبائل نمبر',email:'ای میل',dob:'تاریخ پیدائش',workplace:'کام کی جگہ (برانچ)',workplace_ph:'برانچ یا کمپنی کا نام',jobtitle:'عہدہ',jobtitle_ph:'مثلاً: آپریٹر، اکاؤنٹنٹ...',iban:'آئبان نمبر',iban_hint:'صرف نمبر درج کریں — SA خود بخود شامل ہوگا',bank:'بینک کا نام',bank_ph:'بینک منتخب کریں...',accnum:'اکاؤنٹ نمبر',accnum_ph:'بینک اکاؤنٹ نمبر',homeaddress:'وطن میں پتہ',homeaddress_ph:'ملک، شہر، علاقہ، گلی...',emergency:'وطن میں ہنگامی نمبر',emergency_ph:'+92 0300 000 0000',iqama:'اقامہ کی تصویر',up_iqama:'اقامہ کی تصویر اپلوڈ کریں',health:'صحت کارڈ کی تصویر',up_health:'صحت کارڈ اپلوڈ کریں',photo:'ذاتی تصویر',up_photo:'ذاتی تصویر اپلوڈ کریں',submit:'معلومات جمع کریں',success_title:'کامیابی سے جمع ہو گیا!',success_sub:'شکریہ، آپ کی معلومات جلد ٹیم کی طرف سے جائزہ لی جائے گی۔',err_pre:'⚠️ براہ کرم پُر کریں: ',err_file:'⚠️ براہ کرم اپلوڈ کریں: ',sending:'بھیجا جا رہا ہے...',err_conn:'ایک خرابی ہوئی۔ انٹرنیٹ چیک کریں اور دوبارہ کوشش کریں۔',v_fullname:'پورا نام',v_iqamanum:'اقامہ نمبر',v_phone:'موبائل نمبر',v_email:'ای میل',v_dob:'تاریخ پیدائش',v_workplace:'کام کی جگہ',v_jobtitle:'عہدہ',v_iban:'آئبان',v_bank:'بینک',v_accnum:'اکاؤنٹ نمبر',v_homeaddress:'وطن کا پتہ',v_emergency:'ہنگامی نمبر',v_iqama:'اقامہ تصویر',v_health:'صحت کارڈ',v_photo:'ذاتی تصویر'}
+};
+
+function setLabel(id,text){var el=document.getElementById(id);if(!el)return;var req=el.querySelector('.req');el.childNodes[0].textContent=text;if(req)el.appendChild(req);}
+
+function setLang(lang,btn){
+  currentLang=lang;
+  var t=T[lang];
+  document.documentElement.setAttribute('dir',t.dir);
+  document.documentElement.setAttribute('lang',lang);
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById('t-subtitle').textContent=t.subtitle;
+  document.getElementById('t-sec1').textContent=t.sec1;
+  document.getElementById('t-sec2').textContent=t.sec2;
+  document.getElementById('t-sec3').textContent=t.sec3;
+  document.getElementById('t-sec4').textContent=t.sec4;
+  setLabel('t-fullname',t.fullname);
+  setLabel('t-phone',t.phone);
+  setLabel('t-email',t.email);
+  setLabel('t-dob',t.dob);
+  setLabel('t-workplace',t.workplace);
+  setLabel('t-jobtitle',t.jobtitle);
+  setLabel('t-iban',t.iban);
+  setLabel('t-bank',t.bank);
+  setLabel('t-accnum',t.accnum);
+  setLabel('t-homeaddress',t.homeaddress);
+  setLabel('t-emergency',t.emergency);
+  setLabel('t-iqama',t.iqama);
+  setLabel('t-health',t.health);
+  setLabel('t-photo',t.photo);
+  document.getElementById('t-iban-hint').textContent=t.iban_hint;
+  document.getElementById('t-bank-ph').textContent=t.bank_ph;
+  document.getElementById('t-up-iqama').textContent=t.up_iqama;
+  document.getElementById('t-up-health').textContent=t.up_health;
+  document.getElementById('t-up-photo').textContent=t.up_photo;
+  document.getElementById('t-submit').textContent=t.submit;
+  document.getElementById('t-success-title').textContent=t.success_title;
+  document.getElementById('t-success-sub').textContent=t.success_sub;
+  document.getElementById('fullname').placeholder=t.fullname_ph;
+  document.getElementById('t-iqamanum').childNodes[0].textContent=t.iqamanum;
+  document.getElementById('iqamanum').placeholder=t.iqamanum_ph;
+  document.getElementById('t-iqama-note').innerHTML=t.iqama_note;
+  document.getElementById('workplace').placeholder=t.workplace_ph;
+  document.getElementById('jobtitle').placeholder=t.jobtitle_ph;
+  document.getElementById('accnum').placeholder=t.accnum_ph;
+  document.getElementById('homeaddress').placeholder=t.homeaddress_ph;
+  document.getElementById('emergency').placeholder=t.emergency_ph;
+}
+
+function formatIBAN(el){var v=el.value.replace(/\D/g,'');if(v.length>22)v=v.slice(0,22);var out='';for(var i=0;i<v.length;i++){if(i>0&&i%4===0)out+=' ';out+=v[i];}el.value=out;}
+
+function previewFile(input,prevId,nameId){var file=input.files[0];if(!file)return;var n=document.getElementById(nameId);var p=document.getElementById(prevId);n.textContent=file.name;n.style.display='block';var r=new FileReader();r.onload=function(e){p.src=e.target.result;p.style.display='block';};r.readAsDataURL(file);}
+
+function toBase64(file){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(r.result.split(',')[1]);};r.onerror=rej;r.readAsDataURL(file);});}
+
+function submitForm(){
+  var t=T[currentLang];
+  var baseFields=[{id:'fullname',l:t.v_fullname},{id:'iqamanum',l:t.v_iqamanum},{id:'phone',l:t.v_phone},{id:'email',l:t.v_email},{id:'dob',l:t.v_dob},{id:'workplace',l:t.v_workplace},{id:'jobtitle',l:t.v_jobtitle},{id:'homeaddress',l:t.v_homeaddress},{id:'emergency',l:t.v_emergency}];
+  var bankOnlyFields=currentPayType==='bank'?[{id:'iban',l:t.v_iban},{id:'bank',l:t.v_bank},{id:'accnum',l:t.v_accnum}]:[];
+  var fields=baseFields.concat(bankOnlyFields);
+  for(var i=0;i<fields.length;i++){var el=document.getElementById(fields[i].id);if(!el.value.trim()){el.focus();el.style.borderColor='#E24B4A';el.style.boxShadow='0 0 0 3px rgba(226,75,74,0.15)';(function(e){setTimeout(function(){e.style.borderColor='';e.style.boxShadow='';},2500);})(el);alert(t.err_pre+fields[i].l);return;}}
+  var files=[{id:'f-iqama',l:t.v_iqama},{id:'f-photo',l:t.v_photo}];
+  for(var j=0;j<files.length;j++){if(!document.getElementById(files[j].id).files.length){alert(t.err_file+files[j].l);return;}}
+  var btn=document.getElementById('t-submit');btn.textContent=t.sending;btn.disabled=true;
+  var healthFile=document.getElementById('f-health').files[0];
+  var promises=[toBase64(document.getElementById('f-iqama').files[0]),healthFile?toBase64(healthFile):Promise.resolve(null),toBase64(document.getElementById('f-photo').files[0])];
+  Promise.all(promises).then(function(imgs){
+    var ibanRaw=currentPayType==='bank'?document.getElementById('iban').value.replace(/\s/g,''):'';
+    var payload={fullname:document.getElementById('fullname').value.trim(),phone:document.getElementById('phone').value.trim(),email:document.getElementById('email').value.trim(),dob:document.getElementById('dob').value,workplace:document.getElementById('workplace').value.trim(),job_title:document.getElementById('jobtitle').value.trim(),iqama_number:document.getElementById('iqamanum').value.trim(),payment_type:currentPayType,iban:currentPayType==='bank'?'SA'+ibanRaw:'كاش',bank_name:currentPayType==='bank'?document.getElementById('bank').value:'كاش',account_number:currentPayType==='bank'?document.getElementById('accnum').value.trim():'كاش',home_address:document.getElementById('homeaddress').value.trim(),emergency_number:document.getElementById('emergency').value.trim(),iqama_image_base64:imgs[0],health_card_base64:imgs[1],personal_photo_base64:imgs[2],form_language:currentLang,submitted_at:new Date().toISOString()};
+    return fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  }).then(function(res){if(!res.ok)throw new Error('err');document.getElementById('form-content').style.display='none';document.getElementById('success-msg').style.display='block';}).catch(function(){btn.textContent=t.submit;btn.disabled=false;alert(t.err_conn);});
+}
+</script>
+</body>
+</html>
