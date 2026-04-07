@@ -251,7 +251,7 @@
 
 </div>
 <script>
-var WEBHOOK_URL="https://dlvr.app.n8n.cloud/webhook/Form_Employees";
+var WEBHOOK_URL="https://dwadawdawd.app.n8n.cloud/webhook/Form_Employees";
 var currentPayType='bank';
 function setPayType(type){
   currentPayType=type;
@@ -344,7 +344,20 @@ function submitForm(){
   Promise.all(promises).then(function(imgs){
     var ibanRaw=currentPayType==='bank'?document.getElementById('iban').value.replace(/\s/g,''):'';
     var payload={fullname:document.getElementById('fullname').value.trim(),phone:document.getElementById('phone').value.trim(),email:document.getElementById('email').value.trim(),dob:document.getElementById('dob').value,workplace:document.getElementById('workplace').value.trim(),job_title:document.getElementById('jobtitle').value.trim(),iqama_number:document.getElementById('iqamanum').value.trim(),payment_type:currentPayType,iban:currentPayType==='bank'?'SA'+ibanRaw:'كاش',bank_name:currentPayType==='bank'?document.getElementById('bank').value:'كاش',account_number:currentPayType==='bank'?document.getElementById('accnum').value.trim():'كاش',home_address:document.getElementById('homeaddress').value.trim(),emergency_number:document.getElementById('emergency').value.trim(),iqama_image_base64:imgs[0],health_card_base64:imgs[1],personal_photo_base64:imgs[2],form_language:currentLang,submitted_at:new Date().toISOString()};
-    return fetch(WEBHOOK_URL,{method:'POST',mode:'cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)});
+    var xhr=new XMLHttpRequest();
+    xhr.open('POST',WEBHOOK_URL,true);
+    xhr.setRequestHeader('Content-Type','text/plain;charset=UTF-8');
+    xhr.onload=function(){
+      document.getElementById('form-content').style.display='none';
+      var sm=document.getElementById('success-msg');
+      sm.classList.add('show');
+      var cw=document.getElementById('confetti-wrap');
+      var colors=['#FF6B00','#FFB347','#4CAF50','#2196F3','#9C27B0','#FF5722'];
+      for(var c=0;c<18;c++){var s=document.createElement('span');s.style.left=Math.random()*100+'%';s.style.background=colors[Math.floor(Math.random()*colors.length)];s.style.animationDelay=Math.random()*0.8+'s';s.style.animationDuration=(0.8+Math.random()*0.8)+'s';s.style.width=(6+Math.random()*6)+'px';s.style.height=(6+Math.random()*6)+'px';cw.appendChild(s);}
+    };
+    xhr.onerror=function(){btn.textContent=t.submit;btn.disabled=false;alert(t.err_conn);};
+    xhr.send(JSON.stringify(payload));
+    return Promise.resolve({ok:true});
   }).then(function(res){if(!res.ok)throw new Error('err');document.getElementById('form-content').style.display='none';
     var sm=document.getElementById('success-msg');
     sm.classList.add('show');
