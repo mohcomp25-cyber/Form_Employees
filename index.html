@@ -244,7 +244,7 @@
 
 </div>
 <script>
-var WEBHOOK_URL="https://lachelle-sigillary-lala.ngrok-free.dev/webhook-test/2ff49177-5075-4cc8-8380-e05cbb0f682e";
+var WEBHOOK_URL="https://lachelle-sigillary-lala.ngrok-free.dev/webhook/209da9ba-3b19-4d7e-aae7-ae590a3a0d3d";
 var currentPayType='bank';
 function setPayType(type){
   currentPayType=type;
@@ -337,7 +337,7 @@ function submitForm(){
   Promise.all(promises).then(function(imgs){
     var ibanRaw=currentPayType==='bank'?document.getElementById('iban').value.replace(/\s/g,''):'';
     var payload={fullname:document.getElementById('fullname').value.trim(),phone:document.getElementById('phone').value.trim(),email:document.getElementById('email').value.trim(),dob:document.getElementById('dob').value,workplace:document.getElementById('workplace').value.trim(),job_title:document.getElementById('jobtitle').value.trim(),iqama_number:document.getElementById('iqamanum').value.trim(),payment_type:currentPayType,iban:currentPayType==='bank'?'SA'+ibanRaw:'كاش',bank_name:currentPayType==='bank'?document.getElementById('bank').value:'كاش',account_number:currentPayType==='bank'?document.getElementById('accnum').value.trim():'كاش',home_address:document.getElementById('homeaddress').value.trim(),emergency_number:document.getElementById('emergency').value.trim(),iqama_image_base64:imgs[0],health_card_base64:imgs[1],personal_photo_base64:imgs[2],form_language:currentLang,submitted_at:new Date().toISOString()};
-    return fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    return fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json','ngrok-skip-browser-warning':'true'},body:JSON.stringify(payload)});
   }).then(function(res){if(!res.ok)throw new Error('err');document.getElementById('form-content').style.display='none';document.getElementById('success-msg').style.display='block';}).catch(function(){btn.textContent=t.submit;btn.disabled=false;alert(t.err_conn);});
 }
 </script>
