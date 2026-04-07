@@ -321,6 +321,7 @@ function formatIBAN(el){var v=el.value.replace(/\D/g,'');if(v.length>22)v=v.slic
 function previewFile(input,prevId,nameId){var file=input.files[0];if(!file)return;var n=document.getElementById(nameId);var p=document.getElementById(prevId);n.textContent=file.name;n.style.display='block';var r=new FileReader();r.onload=function(e){p.src=e.target.result;p.style.display='block';};r.readAsDataURL(file);}
 
 function toBase64(file){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(r.result.split(',')[1]);};r.onerror=rej;r.readAsDataURL(file);});}
+function toBase64Compressed(file){return new Promise(function(res,rej){var img=new Image();var url=URL.createObjectURL(file);img.onload=function(){var canvas=document.createElement('canvas');var max=800;var w=img.width,h=img.height;if(w>max){h=Math.round(h*max/w);w=max;}if(h>max){w=Math.round(w*max/h);h=max;}canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);URL.revokeObjectURL(url);var data=canvas.toDataURL('image/jpeg',0.7).split(',')[1];res(data);};img.onerror=rej;img.src=url;});}
 
 function submitForm(){
   var t=T[currentLang];
@@ -332,7 +333,7 @@ function submitForm(){
   for(var j=0;j<files.length;j++){if(!document.getElementById(files[j].id).files.length){alert(t.err_file+files[j].l);return;}}
   var btn=document.getElementById('t-submit');btn.textContent=t.sending;btn.disabled=true;
   var healthFile=document.getElementById('f-health').files[0];
-  var promises=[toBase64(document.getElementById('f-iqama').files[0]),healthFile?toBase64(healthFile):Promise.resolve(null),toBase64(document.getElementById('f-photo').files[0])];
+  var promises=[toBase64Compressed(document.getElementById('f-iqama').files[0]),healthFile?toBase64Compressed(healthFile):Promise.resolve(null),toBase64Compressed(document.getElementById('f-photo').files[0])];
   Promise.all(promises).then(function(imgs){
     var ibanRaw=currentPayType==='bank'?document.getElementById('iban').value.replace(/\s/g,''):'';
     var payload={fullname:document.getElementById('fullname').value.trim(),phone:document.getElementById('phone').value.trim(),email:document.getElementById('email').value.trim(),dob:document.getElementById('dob').value,workplace:document.getElementById('workplace').value.trim(),job_title:document.getElementById('jobtitle').value.trim(),iqama_number:document.getElementById('iqamanum').value.trim(),payment_type:currentPayType,iban:currentPayType==='bank'?'SA'+ibanRaw:'كاش',bank_name:currentPayType==='bank'?document.getElementById('bank').value:'كاش',account_number:currentPayType==='bank'?document.getElementById('accnum').value.trim():'كاش',home_address:document.getElementById('homeaddress').value.trim(),emergency_number:document.getElementById('emergency').value.trim(),iqama_image_base64:imgs[0],health_card_base64:imgs[1],personal_photo_base64:imgs[2],form_language:currentLang,submitted_at:new Date().toISOString()};
