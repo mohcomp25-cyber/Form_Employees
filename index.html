@@ -1,309 +1,201 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#FF6B00">
-<title>استمارة بيانات الموظف</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
 
-<div class="page-wrapper">
+:root {
+  --c-bg:       #0E0C0A;
+  --c-surface:  #161310;
+  --c-card:     #1C1814;
+  --c-card-2:   #221E19;
+  --c-border:   rgba(255,255,255,0.07);
+  --c-border-2: rgba(255,255,255,0.12);
+  --c-orange:   #FF6B00;
+  --c-orange-2: #FF8C35;
+  --c-amber:    #FFB347;
+  --c-text:     #F0EBE3;
+  --c-text-2:   #A89880;
+  --c-text-3:   #6B5B48;
+  --c-success:  #22C55E;
+  --c-error:    #EF4444;
+  --r-sm: 10px; --r-md: 16px; --r-lg: 22px; --r-xl: 30px;
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', 'Noto Sans Arabic', sans-serif;
+  --font-ar:      'Noto Sans Arabic', sans-serif;
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
-  <!-- TOP BAR -->
-  <header class="top-bar">
-    <div class="top-bar-brand">
-      <div class="top-bar-logo">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Brave logo: B letter mark -->
-          <rect width="32" height="32" rx="8" fill="#5B2D8E"/>
-          <text x="7" y="23" font-family="Arial Black, sans-serif" font-size="20" font-weight="900" fill="white">B</text>
-          <!-- top right quarter circle accent -->
-          <path d="M22 6 Q28 6 28 12" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="top-bar-name">Brave <span>F&B</span></span>
-    </div>
-    <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('ar', this)">العربية</button>
-      <button class="lang-btn" onclick="setLang('en', this)">English</button>
-      <button class="lang-btn" onclick="setLang('ur', this)">اردو</button>
-    </div>
-  </header>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--c-bg);color:var(--c-text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.35}
+body::after{content:'';position:fixed;top:-30vh;left:50%;transform:translateX(-50%);width:80vw;height:60vh;background:radial-gradient(ellipse,rgba(255,107,0,.08) 0%,transparent 70%);pointer-events:none;z-index:0}
+.page-wrapper{position:relative;z-index:1;min-height:100vh}
+.container{max-width:680px;margin:0 auto;padding:1.5rem 1.25rem 5rem}
 
-  <main class="container">
+/* TOP BAR */
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(14,12,10,.8);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--c-border);padding:.875rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.top-bar-brand{display:flex;align-items:center;gap:10px}
+.top-bar-logo{width:34px;height:34px;background:linear-gradient(135deg,var(--c-orange),#CC4E00);border-radius:9px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(255,107,0,.3);flex-shrink:0}
+.top-bar-name{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--c-text);letter-spacing:-.3px}
+.top-bar-name span{color:var(--c-orange)}
 
-    <div id="form-content">
+/* LANG */
+.lang-switcher{display:flex;gap:2px;background:rgba(255,255,255,.04);border:1px solid var(--c-border);border-radius:10px;padding:3px}
+.lang-btn{padding:5px 13px;border:none;border-radius:7px;background:transparent;font-size:12px;font-weight:600;cursor:pointer;color:var(--c-text-3);transition:all .2s var(--ease-out);font-family:var(--font-body);white-space:nowrap;letter-spacing:.3px}
+.lang-btn.active{background:var(--c-orange);color:#fff;box-shadow:0 2px 8px rgba(255,107,0,.35)}
+.lang-btn:hover:not(.active){color:var(--c-text-2);background:rgba(255,255,255,.05)}
 
-      <!-- HERO -->
-      <div class="hero">
-        <div class="hero-card">
-          <div class="hero-inner">
-            <div class="hero-icon-wrap">
-              <svg width="34" height="34" viewBox="0 0 36 36" fill="none">
-                <circle cx="18" cy="11" r="6" fill="white" opacity="0.95"/>
-                <path d="M6 30 C6 22 10 19 18 19 C26 19 30 22 30 30" fill="white" opacity="0.95"/>
-                <rect x="13" y="24" width="10" height="7" rx="2" fill="#FF6B00" opacity="0.9"/>
-                <rect x="15" y="26" width="6" height="1.2" rx="0.6" fill="white"/>
-                <rect x="15" y="28.2" width="4" height="1" rx="0.5" fill="white" opacity="0.7"/>
-                <rect x="17.2" y="21" width="1.6" height="3.2" rx="0.8" fill="white" opacity="0.6"/>
-              </svg>
-            </div>
-            <div class="hero-text">
-              <div class="hero-eyebrow">HR Portal</div>
-              <div class="hero-title">استمارة بيانات الموظف</div>
-              <div class="hero-subtitle">Employee Information Form</div>
-            </div>
-          </div>
-          <div class="hero-badges">
-            <div class="hero-badge"><div class="hero-badge-dot"></div><span id="t-badge1">نموذج آمن ومشفر</span></div>
-            <div class="hero-badge"><div class="hero-badge-dot"></div><span id="t-badge2">ثلاث لغات</span></div>
-            <div class="hero-badge"><div class="hero-badge-dot"></div><span id="t-badge3">معالجة فورية</span></div>
-          </div>
-        </div>
-      </div>
+/* HERO */
+.hero{margin:2rem 0 1.5rem}
+.hero-card{position:relative;border-radius:var(--r-xl);overflow:hidden;padding:2.5rem 2rem 2rem;background:var(--c-card);border:1px solid var(--c-border)}
+.hero-card::before{content:'';position:absolute;inset:0;border-radius:var(--r-xl);padding:1px;background:linear-gradient(135deg,rgba(255,107,0,.5),transparent 50%,rgba(255,107,0,.15));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.hero-card::after{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,107,0,.12) 0%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;display:flex;align-items:flex-start;gap:1.25rem}
+.hero-icon-wrap{flex-shrink:0;width:60px;height:60px;border-radius:var(--r-md);background:rgba(255,107,0,.1);border:1px solid rgba(255,107,0,.25);display:flex;align-items:center;justify-content:center}
+.hero-text{flex:1}
+.hero-eyebrow{font-family:var(--font-display);font-size:10px;font-weight:700;color:var(--c-orange);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(255,107,0,.4),transparent);max-width:60px}
+.hero-title{font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--c-text);line-height:1.15;letter-spacing:-.8px;margin-bottom:5px}
+.hero-subtitle{font-size:13px;color:var(--c-text-3);font-weight:400}
+.hero-badges{position:relative;z-index:1;display:flex;gap:8px;flex-wrap:wrap;margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid var(--c-border)}
+.hero-badge{display:flex;align-items:center;gap:6px;padding:5px 12px;background:rgba(255,255,255,.04);border:1px solid var(--c-border);border-radius:20px;font-size:11px;color:var(--c-text-3);font-weight:500;transition:all .2s}
+.hero-badge:hover{border-color:rgba(255,107,0,.3);color:var(--c-text-2)}
+.hero-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--c-orange);animation:pulse-dot 2s ease infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 
-      <!-- PROGRESS -->
-      <div class="progress-wrap">
-        <div class="progress-header">
-          <span class="progress-label" id="t-progress">اكتمال النموذج</span>
-          <span class="progress-pct" id="progress-pct">0%</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="progress-fill"></div>
-        </div>
-      </div>
+/* PROGRESS */
+.progress-wrap{background:var(--c-card);border:1px solid var(--c-border);border-radius:var(--r-md);padding:1rem 1.25rem;margin-bottom:1.25rem;animation:fadeUp .4s var(--ease-out) both}
+.progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.progress-label{font-size:11px;font-weight:600;color:var(--c-text-3);text-transform:uppercase;letter-spacing:1px}
+.progress-pct{font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--c-orange)}
+.progress-track{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--c-orange),var(--c-amber));border-radius:2px;transition:width .6s var(--ease-out);width:0%;position:relative}
+.progress-fill::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--c-amber);box-shadow:0 0 8px var(--c-orange)}
 
-      <!-- SECTION 1 -->
-      <div class="form-section">
-        <div class="section-header">
-          <div class="section-icon">👤</div>
-          <div class="section-meta">
-            <div class="section-title" id="t-sec1">المعلومات الشخصية</div>
-            <div class="section-desc" id="t-sec1d">البيانات الأساسية للموظف</div>
-          </div>
-          <div class="section-num">1</div>
-        </div>
-        <div class="fields-grid">
-          <div class="row full">
-            <div class="field">
-              <label class="field-label"><span id="t-lbl-fullname">الاسم الكامل (كما في الإقامة)</span><span class="req"> *</span></label>
-              <div class="input-wrap has-icon"><span class="input-icon">✍️</span>
-              <input type="text" id="fullname" placeholder="الاسم الرباعي كما هو في الإقامة"></div>
-            </div>
-          </div>
-          <div class="row full">
-            <div class="field">
-              <label class="field-label"><span id="t-lbl-iqamanum">رقم الإقامة</span><span class="req"> *</span></label>
-              <div class="input-wrap has-icon"><span class="input-icon">🪪</span>
-              <input type="text" id="iqamanum" placeholder="XXXXXXXXXX" maxlength="12"></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="field">
-              <label class="field-label"><span id="t-lbl-phone">رقم الجوال</span><span class="req"> *</span></label>
-              <div class="input-wrap has-icon"><span class="input-icon">📱</span>
-              <input type="tel" id="phone" placeholder="05XXXXXXXX"></div>
-            </div>
-            <div class="field">
-              <label class="field-label"><span id="t-lbl-email">البريد الإلكتروني</span><span class="req"> *</span></label>
-              <div class="input-wrap has-icon"><span class="input-icon">✉️</span>
-              <input type="email" id="email" placeholder="example@email.com"></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="field">
-              <label class="field-label"><span id="t-lbl-dob">تاريخ الميلاد</span><span class="req"> *</span></label>
-              <input type="date" id="dob">
-            </div>
-            <div class="field">
-              <label class="field-label"><span id="t-lbl-workplace">جهة العمل (الفرع)</span><span class="req"> *</span></label>
-              <div class="input-wrap has-icon"><span class="input-icon">🏢</span>
-              <input type="text" id="workplace" placeholder="اسم الفرع أو الشركة"></div>
-            </div>
-          </div>
-          <div class="row full">
-            <div class="field">
-              <label class="field-label"><span id="t-lbl-jobtitle">المسمى الوظيفي</span><span class="req"> *</span></label>
-              <div class="input-wrap has-icon"><span class="input-icon">💼</span>
-              <input type="text" id="jobtitle" placeholder="مثال: مشغّل منصة، محاسب..."></div>
-            </div>
-          </div>
-        </div>
-      </div>
+/* SECTIONS */
+.form-section{background:var(--c-card);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:1.75rem;margin-bottom:1rem;transition:border-color .3s,box-shadow .3s;animation:fadeUp .5s var(--ease-out) both;position:relative;overflow:hidden}
+.form-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,107,0,.3),transparent);opacity:0;transition:opacity .3s}
+.form-section:hover{border-color:var(--c-border-2);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.form-section:hover::before{opacity:1}
+.form-section:nth-child(1){animation-delay:.05s}
+.form-section:nth-child(2){animation-delay:.1s}
+.form-section:nth-child(3){animation-delay:.15s}
+.form-section:nth-child(4){animation-delay:.2s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-      <!-- SECTION 2 -->
-      <div class="form-section">
-        <div class="section-header">
-          <div class="section-icon">🏦</div>
-          <div class="section-meta">
-            <div class="section-title" id="t-sec2">المعلومات البنكية</div>
-            <div class="section-desc" id="t-sec2d">بيانات الراتب والدفع</div>
-          </div>
-          <div class="section-num">2</div>
-        </div>
-        <div class="fields-grid">
-          <div class="field">
-            <label class="field-label"><span id="t-lbl-paytype">طريقة استلام الراتب</span><span class="req"> *</span></label>
-            <div class="pay-toggle">
-              <button type="button" id="btn-bank" class="pay-option active" onclick="setPayType('bank')">
-                <span class="pay-icon">🏦</span>
-                <span class="pay-label" id="t-btn-bank">تحويل بنكي</span>
-                <span class="pay-check"></span>
-              </button>
-              <button type="button" id="btn-cash" class="pay-option" onclick="setPayType('cash')">
-                <span class="pay-icon">💵</span>
-                <span class="pay-label" id="t-btn-cash">كاش</span>
-                <span class="pay-check"></span>
-              </button>
-            </div>
-          </div>
-          <div id="bank-fields">
-            <div class="fields-grid">
-              <div class="row full">
-                <div class="field">
-                  <label class="field-label"><span id="t-lbl-iban">رقم الآيبان</span><span class="req"> *</span></label>
-                  <div class="iban-group">
-                    <div class="iban-prefix">SA</div>
-                    <input type="text" id="iban" placeholder="0000 0000 0000 0000 00" maxlength="22" oninput="formatIBAN(this)">
-                  </div>
-                  <span class="field-hint" id="t-iban-hint">أدخل الأرقام فقط — SA مضافة تلقائياً</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="field">
-                  <label class="field-label"><span id="t-lbl-bank">اسم البنك</span><span class="req"> *</span></label>
-                  <select id="bank">
-                    <option value="">اختر البنك...</option>
-                    <option>بنك الراجحي</option>
-                    <option>البنك الأهلي السعودي</option>
-                    <option>بنك الرياض</option>
-                    <option>البنك السعودي الفرنسي</option>
-                    <option>بنك البلاد</option>
-                    <option>بنك الإنماء</option>
-                    <option>بنك العربي الوطني</option>
-                    <option>بنك ساب</option>
-                    <option>مصرف الجزيرة</option>
-                    <option>بنك الخليج الدولي</option>
-                    <option>STC Bank / STC Pay</option>
-                    <option>أخرى</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label class="field-label"><span id="t-lbl-accnum">رقم الحساب</span><span class="req"> *</span></label>
-                  <input type="text" id="accnum" placeholder="رقم الحساب البنكي">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="cash-info" class="cash-info">
-            <div class="cash-info-icon">💵</div>
-            <div class="cash-info-title" id="t-cash-title">تم اختيار الدفع كاش</div>
-            <div class="cash-info-sub" id="t-cash-sub">سيتم تسليم الراتب نقداً — لا حاجة لبيانات بنكية</div>
-          </div>
-        </div>
-      </div>
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--c-border)}
+.section-icon{width:38px;height:38px;border-radius:10px;background:rgba(255,107,0,.1);border:1px solid rgba(255,107,0,.2);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;transition:all .3s}
+.form-section:hover .section-icon{background:rgba(255,107,0,.15);box-shadow:0 0 16px rgba(255,107,0,.15)}
+.section-meta{flex:1}
+.section-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--c-text);letter-spacing:-.2px}
+.section-desc{font-size:11px;color:var(--c-text-3);margin-top:2px}
+.section-num{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid var(--c-border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--c-text-3);font-family:var(--font-display);flex-shrink:0}
 
-      <!-- SECTION 3 -->
-      <div class="form-section">
-        <div class="section-header">
-          <div class="section-icon">🚨</div>
-          <div class="section-meta">
-            <div class="section-title" id="t-sec3">الطوارئ والعنوان</div>
-            <div class="section-desc" id="t-sec3d">معلومات التواصل والسكن</div>
-          </div>
-          <div class="section-num">3</div>
-        </div>
-        <div class="fields-grid">
-          <div class="row full">
-            <div class="field">
-              <label class="field-label"><span id="t-lbl-homeaddress">عنوانك في بلد الأصل</span><span class="req"> *</span></label>
-              <textarea id="homeaddress" rows="2" placeholder="الدولة، المدينة، الحي، الشارع..."></textarea>
-            </div>
-          </div>
-          <div class="row full">
-            <div class="field">
-              <label class="field-label"><span id="t-lbl-emergency">رقم الطوارئ في بلدك</span><span class="req"> *</span></label>
-              <div class="input-wrap has-icon"><span class="input-icon">📞</span>
-              <input type="tel" id="emergency" placeholder="+92 0300 000 0000"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+/* FIELDS */
+.fields-grid{display:flex;flex-direction:column;gap:14px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row.full{grid-template-columns:1fr}
+.field{display:flex;flex-direction:column;gap:7px}
+.field-label{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--c-text-3);text-transform:uppercase;letter-spacing:.6px}
+.field-label .req{color:var(--c-orange);font-size:14px;line-height:1}
+.field-hint{font-size:11px;color:var(--c-text-3)}
+.input-wrap{position:relative}
+.input-icon{position:absolute;top:50%;transform:translateY(-50%);inset-inline-start:13px;font-size:14px;pointer-events:none;opacity:.4;z-index:1;transition:opacity .2s}
 
-      <!-- SECTION 4 -->
-      <div class="form-section">
-        <div class="section-header">
-          <div class="section-icon">📋</div>
-          <div class="section-meta">
-            <div class="section-title" id="t-sec4">المستندات المطلوبة</div>
-            <div class="section-desc" id="t-sec4d">صور الوثائق الرسمية</div>
-          </div>
-          <div class="section-num">4</div>
-        </div>
-        <div class="fields-grid">
-          <div class="field">
-            <label class="field-label"><span id="t-lbl-iqama">صورة الإقامة</span><span class="req"> *</span></label>
-            <div class="upload-zone" id="zone-iqama" onclick="document.getElementById('f-iqama').click()">
-              <input type="file" id="f-iqama" accept="image/*"
-                onchange="handleUpload(this,'zone-iqama','prev-iqama','t-up-iqama'); updateProgress()">
-              <div class="upload-check">✓</div>
-              <div class="upload-zone-icon">🪪</div>
-              <div class="upload-zone-label" id="t-up-iqama">اضغط لرفع صورة الإقامة</div>
-              <img class="upload-preview" id="prev-iqama" alt="">
-            </div>
-            <div class="alert-box">
-              <span class="alert-box-icon">📝</span>
-              <span class="alert-box-text" id="t-iqama-note">إذا لم تتوفر صورة الإقامة، ارفع <strong>جواز السفر</strong> أو <strong>تأشيرة العمل</strong></span>
-            </div>
-          </div>
-          <div class="upload-grid">
-            <div class="field">
-              <label class="field-label"><span id="t-lbl-health">الكرت الصحي</span></label>
-              <div class="upload-zone" id="zone-health" onclick="document.getElementById('f-health').click()">
-                <input type="file" id="f-health" accept="image/*"
-                  onchange="handleUpload(this,'zone-health','prev-health','t-up-health')">
-                <div class="upload-check">✓</div>
-                <div class="upload-zone-icon">🏥</div>
-                <div class="upload-zone-label" id="t-up-health">رفع الكرت الصحي (اختياري)</div>
-                <img class="upload-preview" id="prev-health" alt="">
-              </div>
-            </div>
-            <div class="field">
-              <label class="field-label"><span id="t-lbl-photo">الصورة الشخصية</span><span class="req"> *</span></label>
-              <div class="upload-zone" id="zone-photo" onclick="document.getElementById('f-photo').click()">
-                <input type="file" id="f-photo" accept="image/*"
-                  onchange="handleUpload(this,'zone-photo','prev-photo','t-up-photo'); updateProgress()">
-                <div class="upload-check">✓</div>
-                <div class="upload-zone-icon">📷</div>
-                <div class="upload-zone-label" id="t-up-photo">رفع الصورة الشخصية</div>
-                <img class="upload-preview" id="prev-photo" alt="">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+input[type=text],input[type=tel],input[type=email],input[type=date],select,textarea{width:100%;padding:11px 14px;font-size:14px;font-family:var(--font-body);background:rgba(255,255,255,.04);border:1px solid var(--c-border);border-radius:var(--r-sm);color:var(--c-text);transition:all .2s var(--ease-out);appearance:none;-webkit-appearance:none}
+input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.5);cursor:pointer}
+.has-icon input,.has-icon select{padding-inline-start:38px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--c-orange);background:rgba(255,107,0,.05);box-shadow:0 0 0 3px rgba(255,107,0,.12),0 0 20px rgba(255,107,0,.08)}
+input::placeholder,textarea::placeholder{color:var(--c-text-3)}
+select option{background:#1C1814;color:var(--c-text)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236B5B48' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 12px center;padding-left:32px;cursor:pointer}
+html[dir=rtl] select{background-position:right 12px center;padding-left:14px;padding-right:32px}
+textarea{resize:none;line-height:1.6}
+input.error{border-color:var(--c-error)!important;box-shadow:0 0 0 3px rgba(239,68,68,.12)!important;animation:shake .4s var(--ease-out)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}60%{transform:translateX(6px)}}
 
-      <!-- SUBMIT -->
-      <div class="submit-wrap">
-        <button type="button" class="submit-btn" id="t-submit" onclick="submitForm()">إرسال البيانات ←</button>
-        <div class="submit-note" id="t-submit-note">🔒 بياناتك محمية ومشفّرة</div>
-      </div>
+/* IBAN */
+.iban-group{display:flex;direction:ltr;border-radius:var(--r-sm);border:1px solid var(--c-border);overflow:hidden;transition:all .2s}
+.iban-group:focus-within{border-color:var(--c-orange);box-shadow:0 0 0 3px rgba(255,107,0,.12),0 0 20px rgba(255,107,0,.08)}
+.iban-prefix{padding:11px 16px;background:linear-gradient(135deg,var(--c-orange),#CC4E00);color:#fff;font-family:var(--font-display);font-size:13px;font-weight:800;letter-spacing:1px;display:flex;align-items:center;flex-shrink:0}
+.iban-group input{border:none;border-radius:0;background:rgba(255,255,255,.04);box-shadow:none!important;letter-spacing:2px}
+.iban-group input:focus{background:rgba(255,107,0,.05);outline:none;border:none;box-shadow:none!important}
 
-    </div><!-- /form-content -->
+/* PAYMENT */
+.pay-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay-option{border:1px solid var(--c-border);border-radius:var(--r-md);padding:14px 12px;cursor:pointer;transition:all .25s var(--ease-out);background:rgba(255,255,255,.03);display:flex;align-items:center;gap:10px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--c-text-3);position:relative;overflow:hidden}
+.pay-option::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,0,.08),transparent);opacity:0;transition:opacity .3s}
+.pay-option.active{border-color:rgba(255,107,0,.5);color:var(--c-orange-2);background:rgba(255,107,0,.08);box-shadow:0 4px 16px rgba(255,107,0,.1),inset 0 1px 0 rgba(255,107,0,.15)}
+.pay-option.active::after{opacity:1}
+.pay-option:hover:not(.active){border-color:var(--c-border-2);color:var(--c-text-2);transform:translateY(-1px)}
+.pay-icon{font-size:20px;position:relative;z-index:1}
+.pay-label{position:relative;z-index:1}
+.pay-check{margin-inline-start:auto;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--c-border-2);display:flex;align-items:center;justify-content:center;transition:all .25s var(--ease-spring);flex-shrink:0;position:relative;z-index:1}
+.pay-option.active .pay-check{background:var(--c-orange);border-color:var(--c-orange);box-shadow:0 0 12px rgba(255,107,0,.4)}
+.pay-option.active .pay-check::after{content:'';width:6px;height:4px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translateY(-1px);display:block}
+.cash-info{display:none;background:rgba(255,107,0,.06);border:1px solid rgba(255,107,0,.2);border-radius:var(--r-md);padding:1.25rem;text-align:center;margin-top:8px;animation:fadeUp .3s var(--ease-out)}
+.cash-info-icon{font-size:28px;margin-bottom:8px}
+.cash-info-title{font-size:14px;font-weight:700;color:var(--c-orange-2)}
+.cash-info-sub{font-size:12px;color:var(--c-text-3);margin-top:4px}
 
-    <!-- SUCCESS -->
-    <div class="success-screen" id="success-screen">
-      <div class="confetti-area" id="confetti-area"></div>
-      <div class="success-icon-wrap">✓</div>
-      <div class="success-title" id="t-success-title">تم الإرسال بنجاح! 🎉</div>
-      <div class="success-sub" id="t-success-sub">شكراً، سيتم مراجعة معلوماتك من قِبل الفريق قريباً.</div>
-    </div>
+/* UPLOADS */
+.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.upload-zone{border:1.5px dashed var(--c-border-2);border-radius:var(--r-md);padding:1.5rem 1rem;text-align:center;cursor:pointer;background:rgba(255,255,255,.02);transition:all .25s var(--ease-out);position:relative;overflow:hidden}
+.upload-zone::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(255,107,0,.06) 0%,transparent 70%);opacity:0;transition:opacity .3s}
+.upload-zone:hover{border-color:rgba(255,107,0,.4);background:rgba(255,107,0,.04);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.upload-zone:hover::before{opacity:1}
+.upload-zone.has-file{border-style:solid;border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.04)}
+.upload-zone input{display:none}
+.upload-zone-icon{font-size:26px;margin-bottom:8px;opacity:.45;transition:all .3s var(--ease-spring);display:block}
+.upload-zone:hover .upload-zone-icon{opacity:.8;transform:scale(1.1) translateY(-2px)}
+.upload-zone.has-file .upload-zone-icon{opacity:1}
+.upload-zone-label{font-size:12px;color:var(--c-text-3);font-weight:500;line-height:1.4;position:relative;z-index:1}
+.upload-zone.has-file .upload-zone-label{color:var(--c-success);font-weight:600}
+.upload-preview{width:100%;max-height:110px;object-fit:cover;border-radius:8px;margin-top:10px;display:none;border:1px solid var(--c-border)}
+.upload-check{position:absolute;top:8px;inset-inline-end:8px;width:22px;height:22px;background:var(--c-success);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:11px;color:white;box-shadow:0 2px 8px rgba(34,197,94,.4);animation:popIn .4s var(--ease-spring)}
+.upload-zone.has-file .upload-check{display:flex}
+@keyframes popIn{from{transform:scale(0) rotate(-45deg);opacity:0}to{transform:scale(1) rotate(0deg);opacity:1}}
 
-  </main>
-</div>
+/* ALERT */
+.alert-box{display:flex;gap:10px;align-items:flex-start;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.2);border-radius:var(--r-sm);padding:10px 12px;margin-top:8px}
+.alert-box-icon{font-size:13px;flex-shrink:0;margin-top:1px}
+.alert-box-text{font-size:11.5px;color:rgba(251,191,36,.7);line-height:1.6}
 
-<script src="script.js"></script>
-</body>
-</html>
+/* SUBMIT */
+.submit-wrap{margin-top:.5rem;background:var(--c-card);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:1.5rem;animation:fadeUp .5s .25s var(--ease-out) both}
+.submit-btn{width:100%;padding:15px 24px;background:linear-gradient(135deg,var(--c-orange) 0%,#CC4E00 100%);color:#fff;border:none;border-radius:var(--r-md);font-family:var(--font-display);font-size:15px;font-weight:700;cursor:pointer;transition:all .25s var(--ease-out);letter-spacing:.3px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(255,107,0,.3),0 0 40px rgba(255,107,0,.1)}
+.submit-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);transition:left .5s}
+.submit-btn:hover::before{left:100%}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,107,0,.4),0 0 60px rgba(255,107,0,.15)}
+.submit-btn:active{transform:translateY(0)}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+.submit-note{text-align:center;font-size:11px;color:var(--c-text-3);margin-top:10px;display:flex;align-items:center;justify-content:center;gap:5px}
+
+/* SUCCESS */
+.success-screen{display:none;text-align:center;padding:4rem 1rem}
+.success-screen.show{display:block;animation:fadeUp .6s var(--ease-spring) forwards}
+.success-icon-wrap{width:90px;height:90px;background:linear-gradient(135deg,#22C55E,#16A34A);border-radius:50%;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;font-size:38px;box-shadow:0 12px 40px rgba(34,197,94,.35),0 0 80px rgba(34,197,94,.1);animation:popIn .5s .3s var(--ease-spring) both}
+.success-title{font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--c-text);margin-bottom:8px;letter-spacing:-.5px}
+.success-sub{font-size:14px;color:var(--c-text-3);line-height:1.7;max-width:300px;margin:0 auto}
+.confetti-area{position:relative;height:60px;margin-bottom:1.5rem;overflow:hidden}
+.confetti-piece{position:absolute;border-radius:3px;animation:confettiFall 1.4s var(--ease-out) forwards}
+@keyframes confettiFall{0%{opacity:1;transform:translateY(60px) rotate(0deg) scale(1)}100%{opacity:0;transform:translateY(-80px) rotate(540deg) scale(.5)}}
+
+/* RESPONSIVE */
+@media(max-width:540px){
+  .container{padding:1rem 1rem 3rem}
+  .hero-card{padding:1.75rem 1.25rem}
+  .hero-inner{flex-direction:column;gap:1rem}
+  .hero-title{font-size:24px}
+  .form-section{padding:1.25rem}
+  .row{grid-template-columns:1fr}
+  .upload-grid{grid-template-columns:1fr}
+  .pay-toggle{grid-template-columns:1fr}
+  .hero-badges{display:none}
+  .top-bar{padding:.75rem 1rem}
+}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--c-bg)}
+::-webkit-scrollbar-thumb{background:var(--c-border-2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--c-text-3)}
+::selection{background:rgba(255,107,0,.25);color:var(--c-text)}
