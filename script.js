@@ -1,5 +1,5 @@
 /* ── CONFIG ── */
-const WEBHOOK_URL = "https://dwadawdawd.app.n8n.cloud/webhook-test/2954b5e3-4c30-4c96-a60c-afd19992ee60";
+const WEBHOOK_URL = "https://lachelle-sigillary-lala.ngrok-free.dev/webhook/2954b5e3-4c30-4c96-a60c-afd19992ee60";
 
 /* ── STATE ── */
 let currentLang = 'ar';
