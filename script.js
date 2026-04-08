@@ -1,5 +1,5 @@
 /* ── CONFIG ── */
-const WEBHOOK_URL = "https://lachelle-sigillary-lala.ngrok-free.dev/webhook/2954b5e3-4c30-4c96-a60c-afd19992ee60";
+const WEBHOOK_URL = "https://dwadawdawd.app.n8n.cloud/webhook-test/2954b5e3-4c30-4c96-a60c-afd19992ee60";
 
 /* ── STATE ── */
 let currentLang = 'ar';
@@ -150,7 +150,7 @@ function applyTranslations(t) {
   set('t-lbl-phone', t.phone); setPH('phone', t.phone_ph);
   set('t-lbl-email', t.email); setPH('email', t.email_ph);
   set('t-lbl-dob', t.dob);
-  set('t-lbl-workplace', t.workplace); setPH('workplace', t.workplace_ph);
+  set('t-lbl-workplace', t.workplace);
   set('t-lbl-jobtitle', t.jobtitle); setPH('jobtitle', t.jobtitle_ph);
   set('t-lbl-paytype', t.paytype);
   set('t-btn-bank', t.btn_bank); set('t-btn-cash', t.btn_cash);
