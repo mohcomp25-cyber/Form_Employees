@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --brand-primary: #5B2D8E;
-  --brand-dark: #3D1A6E;
-  --brand-light: #F3EEF9;
-  --brand-accent: #9B6FCC;
+  --brand-primary: #FF6B00;
+  --brand-dark: #CC4E00;
+  --brand-light: #FFF3E8;
+  --brand-accent: #FFB347;
   --surface-0: #FAFAF9;
   --surface-1: #FFFFFF;
   --surface-2: #F5F3F0;
