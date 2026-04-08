@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FF6B00">
+<title>استمارة بيانات الموظف</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- TOP BAR -->
+  <header class="top-bar">
+    <div class="top-bar-brand">
+      <div class="top-bar-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Brave logo: B letter mark -->
+          <rect width="32" height="32" rx="8" fill="#5B2D8E"/>
+          <text x="7" y="23" font-family="Arial Black, sans-serif" font-size="20" font-weight="900" fill="white">B</text>
+          <!-- top right quarter circle accent -->
+          <path d="M22 6 Q28 6 28 12" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="top-bar-name">Brave <span>F&B</span></span>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('ar', this)">العربية</button>
+      <button class="lang-btn" onclick="setLang('en', this)">English</button>
+      <button class="lang-btn" onclick="setLang('ur', this)">اردو</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div id="form-content">
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="hero-icon-wrap">
+              <svg width="34" height="34" viewBox="0 0 36 36" fill="none">
+                <circle cx="18" cy="11" r="6" fill="white" opacity="0.95"/>
+                <path d="M6 30 C6 22 10 19 18 19 C26 19 30 22 30 30" fill="white" opacity="0.95"/>
+                <rect x="13" y="24" width="10" height="7" rx="2" fill="#FF6B00" opacity="0.9"/>
+                <rect x="15" y="26" width="6" height="1.2" rx="0.6" fill="white"/>
+                <rect x="15" y="28.2" width="4" height="1" rx="0.5" fill="white" opacity="0.7"/>
+                <rect x="17.2" y="21" width="1.6" height="3.2" rx="0.8" fill="white" opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="hero-text">
+              <div class="hero-eyebrow">HR Portal</div>
+              <div class="hero-title">استمارة بيانات الموظف</div>
+              <div class="hero-subtitle">Employee Information Form</div>
+            </div>
+          </div>
+          <div class="hero-badges">
+            <div class="hero-badge"><div class="hero-badge-dot"></div><span id="t-badge1">نموذج آمن ومشفر</span></div>
+            <div class="hero-badge"><div class="hero-badge-dot"></div><span id="t-badge2">ثلاث لغات</span></div>
+            <div class="hero-badge"><div class="hero-badge-dot"></div><span id="t-badge3">معالجة فورية</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-label" id="t-progress">اكتمال النموذج</span>
+          <span class="progress-pct" id="progress-pct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- SECTION 1 -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-icon">👤</div>
+          <div class="section-meta">
+            <div class="section-title" id="t-sec1">المعلومات الشخصية</div>
+            <div class="section-desc" id="t-sec1d">البيانات الأساسية للموظف</div>
+          </div>
+          <div class="section-num">1</div>
+        </div>
+        <div class="fields-grid">
+          <div class="row full">
+            <div class="field">
+              <label class="field-label"><span id="t-lbl-fullname">الاسم الكامل (كما في الإقامة)</span><span class="req"> *</span></label>
+              <div class="input-wrap has-icon"><span class="input-icon">✍️</span>
+              <input type="text" id="fullname" placeholder="الاسم الرباعي كما هو في الإقامة"></div>
+            </div>
+          </div>
+          <div class="row full">
+            <div class="field">
+              <label class="field-label"><span id="t-lbl-iqamanum">رقم الإقامة</span><span class="req"> *</span></label>
+              <div class="input-wrap has-icon"><span class="input-icon">🪪</span>
+              <input type="text" id="iqamanum" placeholder="XXXXXXXXXX" maxlength="12"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label class="field-label"><span id="t-lbl-phone">رقم الجوال</span><span class="req"> *</span></label>
+              <div class="input-wrap has-icon"><span class="input-icon">📱</span>
+              <input type="tel" id="phone" placeholder="05XXXXXXXX"></div>
+            </div>
+            <div class="field">
+              <label class="field-label"><span id="t-lbl-email">البريد الإلكتروني</span><span class="req"> *</span></label>
+              <div class="input-wrap has-icon"><span class="input-icon">✉️</span>
+              <input type="email" id="email" placeholder="example@email.com"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label class="field-label"><span id="t-lbl-dob">تاريخ الميلاد</span><span class="req"> *</span></label>
+              <input type="date" id="dob">
+            </div>
+            <div class="field">
+              <label class="field-label"><span id="t-lbl-workplace">جهة العمل (الفرع)</span><span class="req"> *</span></label>
+              <div class="input-wrap has-icon"><span class="input-icon">🏢</span>
+              <select id="workplace">
+                <option value="">اختر الفرع...</option>
+                <option value="نملية">نملية</option>
+                <option value="مطبخ نملية الرئيسية">مطبخ نملية الرئيسية</option>
+                <option value="مكرونو">مكرونو</option>
+                <option value="مطبخ مكرونو الرئيسية">مطبخ مكرونو الرئيسية</option>
+              </select></div>
+            </div>
+          </div>
+          <div class="row full">
+            <div class="field">
+              <label class="field-label"><span id="t-lbl-jobtitle">المسمى الوظيفي</span><span class="req"> *</span></label>
+              <div class="input-wrap has-icon"><span class="input-icon">💼</span>
+              <input type="text" id="jobtitle" placeholder="مثال: مشغّل منصة، محاسب..."></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-icon">🏦</div>
+          <div class="section-meta">
+            <div class="section-title" id="t-sec2">المعلومات البنكية</div>
+            <div class="section-desc" id="t-sec2d">بيانات الراتب والدفع</div>
+          </div>
+          <div class="section-num">2</div>
+        </div>
+        <div class="fields-grid">
+          <div class="field">
+            <label class="field-label"><span id="t-lbl-paytype">طريقة استلام الراتب</span><span class="req"> *</span></label>
+            <div class="pay-toggle">
+              <button type="button" id="btn-bank" class="pay-option active" onclick="setPayType('bank')">
+                <span class="pay-icon">🏦</span>
+                <span class="pay-label" id="t-btn-bank">تحويل بنكي</span>
+                <span class="pay-check"></span>
+              </button>
+              <button type="button" id="btn-cash" class="pay-option" onclick="setPayType('cash')">
+                <span class="pay-icon">💵</span>
+                <span class="pay-label" id="t-btn-cash">كاش</span>
+                <span class="pay-check"></span>
+              </button>
+            </div>
+          </div>
+          <div id="bank-fields">
+            <div class="fields-grid">
+              <div class="row full">
+                <div class="field">
+                  <label class="field-label"><span id="t-lbl-iban">رقم الآيبان</span><span class="req"> *</span></label>
+                  <div class="iban-group">
+                    <div class="iban-prefix">SA</div>
+                    <input type="text" id="iban" placeholder="0000 0000 0000 0000 00" maxlength="22" oninput="formatIBAN(this)">
+                  </div>
+                  <span class="field-hint" id="t-iban-hint">أدخل الأرقام فقط — SA مضافة تلقائياً</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="field">
+                  <label class="field-label"><span id="t-lbl-bank">اسم البنك</span><span class="req"> *</span></label>
+                  <select id="bank">
+                    <option value="">اختر البنك...</option>
+                    <option>بنك الراجحي</option>
+                    <option>البنك الأهلي السعودي</option>
+                    <option>بنك الرياض</option>
+                    <option>البنك السعودي الفرنسي</option>
+                    <option>بنك البلاد</option>
+                    <option>بنك الإنماء</option>
+                    <option>بنك العربي الوطني</option>
+                    <option>بنك ساب</option>
+                    <option>مصرف الجزيرة</option>
+                    <option>بنك الخليج الدولي</option>
+                    <option>STC Bank / STC Pay</option>
+                    <option>أخرى</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field-label"><span id="t-lbl-accnum">رقم الحساب</span><span class="req"> *</span></label>
+                  <input type="text" id="accnum" placeholder="رقم الحساب البنكي">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="cash-info" class="cash-info">
+            <div class="cash-info-icon">💵</div>
+            <div class="cash-info-title" id="t-cash-title">تم اختيار الدفع كاش</div>
+            <div class="cash-info-sub" id="t-cash-sub">سيتم تسليم الراتب نقداً — لا حاجة لبيانات بنكية</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3 -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-icon">🚨</div>
+          <div class="section-meta">
+            <div class="section-title" id="t-sec3">الطوارئ والعنوان</div>
+            <div class="section-desc" id="t-sec3d">معلومات التواصل والسكن</div>
+          </div>
+          <div class="section-num">3</div>
+        </div>
+        <div class="fields-grid">
+          <div class="row full">
+            <div class="field">
+              <label class="field-label"><span id="t-lbl-homeaddress">عنوانك في بلد الأصل</span><span class="req"> *</span></label>
+              <textarea id="homeaddress" rows="2" placeholder="الدولة، المدينة، الحي، الشارع..."></textarea>
+            </div>
+          </div>
+          <div class="row full">
+            <div class="field">
+              <label class="field-label"><span id="t-lbl-emergency">رقم الطوارئ في بلدك</span><span class="req"> *</span></label>
+              <div class="input-wrap has-icon"><span class="input-icon">📞</span>
+              <input type="tel" id="emergency" placeholder="+92 0300 000 0000"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4 -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-icon">📋</div>
+          <div class="section-meta">
+            <div class="section-title" id="t-sec4">المستندات المطلوبة</div>
+            <div class="section-desc" id="t-sec4d">صور الوثائق الرسمية</div>
+          </div>
+          <div class="section-num">4</div>
+        </div>
+        <div class="fields-grid">
+          <div class="field">
+            <label class="field-label"><span id="t-lbl-iqama">صورة الإقامة</span><span class="req"> *</span></label>
+            <div class="upload-zone" id="zone-iqama" onclick="document.getElementById('f-iqama').click()">
+              <input type="file" id="f-iqama" accept="image/*"
+                onchange="handleUpload(this,'zone-iqama','prev-iqama','t-up-iqama'); updateProgress()">
+              <div class="upload-check">✓</div>
+              <div class="upload-zone-icon">🪪</div>
+              <div class="upload-zone-label" id="t-up-iqama">اضغط لرفع صورة الإقامة</div>
+              <img class="upload-preview" id="prev-iqama" alt="">
+            </div>
+            <div class="alert-box">
+              <span class="alert-box-icon">📝</span>
+              <span class="alert-box-text" id="t-iqama-note">إذا لم تتوفر صورة الإقامة، ارفع <strong>جواز السفر</strong> أو <strong>تأشيرة العمل</strong></span>
+            </div>
+          </div>
+          <div class="upload-grid">
+            <div class="field">
+              <label class="field-label"><span id="t-lbl-health">الكرت الصحي</span></label>
+              <div class="upload-zone" id="zone-health" onclick="document.getElementById('f-health').click()">
+                <input type="file" id="f-health" accept="image/*"
+                  onchange="handleUpload(this,'zone-health','prev-health','t-up-health')">
+                <div class="upload-check">✓</div>
+                <div class="upload-zone-icon">🏥</div>
+                <div class="upload-zone-label" id="t-up-health">رفع الكرت الصحي (اختياري)</div>
+                <img class="upload-preview" id="prev-health" alt="">
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label"><span id="t-lbl-photo">الصورة الشخصية</span><span class="req"> *</span></label>
+              <div class="upload-zone" id="zone-photo" onclick="document.getElementById('f-photo').click()">
+                <input type="file" id="f-photo" accept="image/*"
+                  onchange="handleUpload(this,'zone-photo','prev-photo','t-up-photo'); updateProgress()">
+                <div class="upload-check">✓</div>
+                <div class="upload-zone-icon">📷</div>
+                <div class="upload-zone-label" id="t-up-photo">رفع الصورة الشخصية</div>
+                <img class="upload-preview" id="prev-photo" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBMIT -->
+      <div class="submit-wrap">
+        <button type="button" class="submit-btn" id="t-submit" onclick="submitForm()">إرسال البيانات ←</button>
+        <div class="submit-note" id="t-submit-note">🔒 بياناتك محمية ومشفّرة</div>
+      </div>
+
+    </div><!-- /form-content -->
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="success-screen">
+      <div class="confetti-area" id="confetti-area"></div>
+      <div class="success-icon-wrap">✓</div>
+      <div class="success-title" id="t-success-title">تم الإرسال بنجاح! 🎉</div>
+      <div class="success-sub" id="t-success-sub">شكراً، سيتم مراجعة معلوماتك من قِبل الفريق قريباً.</div>
+    </div>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
