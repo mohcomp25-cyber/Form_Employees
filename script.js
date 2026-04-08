@@ -1,5 +1,5 @@
 /* ── CONFIG ── */
-const WEBHOOK_URL = "https://dwadawdawd.app.n8n.cloud/webhook-test/2954b5e3-4c30-4c96-a60c-afd19992ee60";
+const WEBHOOK_URL = "https://lachelle-sigillary-lala.ngrok-free.dev/webhook/2954b5e3-4c30-4c96-a60c-afd19992ee60";
 
 /* ── STATE ── */
 let currentLang = 'ar';
@@ -184,12 +184,7 @@ function setPayType(type) {
 function formatIBAN(el) {
   let v = el.value.replace(/\D/g, '');
   if (v.length > 18) v = v.slice(0, 18);
-  let out = '';
-  for (let i = 0; i < v.length; i++) {
-    if (i > 0 && i % 4 === 0) out += ' ';
-    out += v[i];
-  }
-  el.value = out;
+  el.value = v;
 }
 
 /* ── FILE UPLOAD ── */
