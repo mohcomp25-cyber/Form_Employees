@@ -179,17 +179,25 @@ function applyTranslations(t) {
   // Translate branches
   if (t.branches) {
     const b = t.branches;
-    const map = {
+    const optMap = {
       'opt-namliya': b.namliya, 'opt-namliya-kitchen': b.namliya_kitchen,
       'opt-macarono': b.macarono, 'opt-macarono-kitchen': b.macarono_kitchen,
       'opt-admin': b.admin, 'opt-admin-general': b.admin_general,
       'opt-hr': b.hr, 'opt-finance': b.finance,
-      'opt-marketing': b.marketing, 'opt-it': b.it,
-      'optg-namliya': b.g_namliya, 'optg-macarono': b.g_macarono, 'optg-admin': b.g_admin
+      'opt-marketing': b.marketing, 'opt-it': b.it
     };
-    Object.entries(map).forEach(([id, text]) => {
+    Object.entries(optMap).forEach(([id, text]) => {
       const el = document.getElementById(id);
       if (el) el.textContent = text;
+    });
+    const grpMap = {
+      'optg-namliya': b.g_namliya,
+      'optg-macarono': b.g_macarono,
+      'optg-admin': b.g_admin
+    };
+    Object.entries(grpMap).forEach(([id, text]) => {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute('label', text);
     });
   }
   set('t-lbl-jobtitle', t.jobtitle); setPH('jobtitle', t.jobtitle_ph);
