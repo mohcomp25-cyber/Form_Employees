@@ -97,14 +97,14 @@
             <div class="field">
               <label class="field-label"><span id="t-lbl-iqamanum">رقم الإقامة</span><span class="req"> *</span></label>
               <div class="input-wrap has-icon"><span class="input-icon">🪪</span>
-              <input type="text" id="iqamanum" placeholder="XXXXXXXXXX" maxlength="10"></div>
+              <input type="text" id="iqamanum" placeholder="XXXXXXXXXX" maxlength="12"></div>
             </div>
           </div>
           <div class="row">
             <div class="field">
               <label class="field-label"><span id="t-lbl-phone">رقم الجوال</span><span class="req"> *</span></label>
               <div class="input-wrap has-icon"><span class="input-icon">📱</span>
-              <input type="tel" id="phone" placeholder="05XXXXXXXX" maxlength="10"></div>
+              <input type="tel" id="phone" placeholder="05XXXXXXXX"></div>
             </div>
             <div class="field">
               <label class="field-label"><span id="t-lbl-email">البريد الإلكتروني</span><span class="req"> *</span></label>
@@ -122,10 +122,21 @@
               <div class="input-wrap has-icon"><span class="input-icon">🏢</span>
               <select id="workplace">
                 <option value="">اختر الفرع...</option>
-                <option value="نملية">نملية</option>
-                <option value="مطبخ نملية الرئيسية">مطبخ نملية الرئيسية</option>
-                <option value="مكرونو">مكرونو</option>
-                <option value="مطبخ مكرونو الرئيسية">مطبخ مكرونو الرئيسية</option>
+                <optgroup label="نملية">
+                  <option value="نملية">نملية</option>
+                  <option value="مطبخ نملية الرئيسية">مطبخ نملية الرئيسية</option>
+                </optgroup>
+                <optgroup label="مكرونو">
+                  <option value="مكرونو">مكرونو</option>
+                  <option value="مطبخ مكرونو الرئيسية">مطبخ مكرونو الرئيسية</option>
+                </optgroup>
+                <optgroup label="الإدارة">
+                  <option value="الإدارة العامة">الإدارة العامة</option>
+                  <option value="الموارد البشرية">الموارد البشرية</option>
+                  <option value="المالية والمحاسبة">المالية والمحاسبة</option>
+                  <option value="التسويق">التسويق</option>
+                  <option value="تقنية المعلومات">تقنية المعلومات</option>
+                </optgroup>
               </select></div>
             </div>
           </div>
