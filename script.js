@@ -44,6 +44,14 @@ const T = {
     v_accnum: 'رقم الحساب', v_homeaddress: 'عنوان بلد الأصل', v_emergency: 'رقم الطوارئ',
     v_iqama: 'صورة الإقامة', v_photo: 'الصورة الشخصية',
     badge1: 'نموذج آمن ومشفر', badge2: 'ثلاث لغات', badge3: 'معالجة فورية',
+    branches: {
+      namliya: 'نملية', namliya_kitchen: 'مطبخ نملية الرئيسية',
+      macarono: 'مكرونو', macarono_kitchen: 'مطبخ مكرونو الرئيسية',
+      admin: 'الإدارة', admin_general: 'الإدارة العامة',
+      hr: 'الموارد البشرية', finance: 'المالية والمحاسبة',
+      marketing: 'التسويق', it: 'تقنية المعلومات',
+      g_namliya: 'نملية', g_macarono: 'مكرونو', g_admin: 'الإدارة'
+    },
   },
   en: {
     dir: 'ltr',
@@ -82,6 +90,14 @@ const T = {
     v_accnum: 'Account Number', v_homeaddress: 'Home Address', v_emergency: 'Emergency Number',
     v_iqama: 'Iqama Photo', v_photo: 'Personal Photo',
     badge1: 'Secure & Encrypted', badge2: 'Trilingual Form', badge3: 'Instant Processing',
+    branches: {
+      namliya: 'Namliya', namliya_kitchen: 'Namliya Main Kitchen',
+      macarono: 'Macarono', macarono_kitchen: 'Macarono Main Kitchen',
+      admin: 'Administration', admin_general: 'General Administration',
+      hr: 'Human Resources', finance: 'Finance & Accounting',
+      marketing: 'Marketing', it: 'Information Technology',
+      g_namliya: 'Namliya', g_macarono: 'Macarono', g_admin: 'Administration'
+    },
   },
   ur: {
     dir: 'rtl',
@@ -120,6 +136,14 @@ const T = {
     v_accnum: 'اکاؤنٹ نمبر', v_homeaddress: 'وطن کا پتہ', v_emergency: 'ہنگامی نمبر',
     v_iqama: 'اقامہ تصویر', v_photo: 'ذاتی تصویر',
     badge1: 'محفوظ اور خفیہ', badge2: 'تین زبانیں', badge3: 'فوری کارروائی',
+    branches: {
+      namliya: 'نملیہ', namliya_kitchen: 'نملیہ مین کچن',
+      macarono: 'ماکارونو', macarono_kitchen: 'ماکارونو مین کچن',
+      admin: 'انتظامیہ', admin_general: 'جنرل انتظامیہ',
+      hr: 'انسانی وسائل', finance: 'مالیات و اکاؤنٹنگ',
+      marketing: 'مارکیٹنگ', it: 'انفارمیشن ٹیکنالوجی',
+      g_namliya: 'نملیہ', g_macarono: 'ماکارونو', g_admin: 'انتظامیہ'
+    },
   }
 };
 
@@ -151,6 +175,23 @@ function applyTranslations(t) {
   set('t-lbl-email', t.email); setPH('email', t.email_ph);
   set('t-lbl-dob', t.dob);
   set('t-lbl-workplace', t.workplace);
+
+  // Translate branches
+  if (t.branches) {
+    const b = t.branches;
+    const map = {
+      'opt-namliya': b.namliya, 'opt-namliya-kitchen': b.namliya_kitchen,
+      'opt-macarono': b.macarono, 'opt-macarono-kitchen': b.macarono_kitchen,
+      'opt-admin': b.admin, 'opt-admin-general': b.admin_general,
+      'opt-hr': b.hr, 'opt-finance': b.finance,
+      'opt-marketing': b.marketing, 'opt-it': b.it,
+      'optg-namliya': b.g_namliya, 'optg-macarono': b.g_macarono, 'optg-admin': b.g_admin
+    };
+    Object.entries(map).forEach(([id, text]) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    });
+  }
   set('t-lbl-jobtitle', t.jobtitle); setPH('jobtitle', t.jobtitle_ph);
   set('t-lbl-paytype', t.paytype);
   set('t-btn-bank', t.btn_bank); set('t-btn-cash', t.btn_cash);
